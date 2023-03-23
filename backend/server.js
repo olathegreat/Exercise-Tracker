@@ -3,13 +3,14 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 
 const mongodb =  require("mongodb")
+
 // import { Express } from "express";
 
 // import mongodb from "mongodb"
 
 require("dotenv").config();
 
-const MongoClient = mongodb.MongoClient
+ const MongoClient = mongodb.MongoClient
 
 const app = express();
 const port = process.env.PORT || 2500;
@@ -20,10 +21,11 @@ app.use(express.json());
 const exerciseRouter = require('./routes/exercises');
 const usersRouter = require('./routes/users');
 
-app.use('/exercises', exercisesRouter);
 app.use('/users', usersRouter);
+app.use('/exercises', exerciseRouter);
 
-MongoClient.connect(
+
+mongoose.connect(
     process.env.ATLAS_URI,{
        
         wtimeoutMS: 2500,
@@ -48,3 +50,4 @@ MongoClient.connect(
 // connection.once("open", () => {
 //   console.log("MongoDB database connection established successfully");
 // });
+module.exports.mongoClient= MongoClient;
