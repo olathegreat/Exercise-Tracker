@@ -5,6 +5,7 @@ import Home from './Home'
 import EditExercise from './components/EditExercise'
 import CreateExercise from './components/CreateExercise'
 import CreateUser from './components/CreateUser'
+import ExercisesList from './components/ExercisesList'
 
 
 const App = () => {
@@ -17,6 +18,7 @@ const App = () => {
     <Routes>
       
       <Route exact path="/" element={<Home/>}/>
+      <Route exact path="/exercises" element={<ExercisesList/>}/>
       <Route exact path="/edit/:id" element={<EditExercise/>}/>
       <Route exact path="/create" element={<CreateExercise/>}/>
       <Route exact path="/user" element={<CreateUser/>}/>

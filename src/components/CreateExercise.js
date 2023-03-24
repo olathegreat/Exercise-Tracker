@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Navbar from "./Navbar";
@@ -39,17 +40,27 @@ const CreateExercise = () => {
             };
 
           
-            console.log("harpy")
 
     console.log(exercise);
+
+    axios.post('http://localhost:2500/exercises/add', exercise)
+      .then(res=>console.log(res.data))
+    setUsername("");
+    
+
     
 
     navigate('/');
   };
 
   useEffect(() => {
-    setUsers(["test user"]);
-    setUsername("test user");
+     axios.get('http://localhost:2500/users/')
+     .then(res=>{
+      if(res.data.length>0){
+        setUsers(res.data.map(user=>user.username))
+        setUsername(res.data(0).username) 
+      }
+     })
   
   }, []);
   return (
