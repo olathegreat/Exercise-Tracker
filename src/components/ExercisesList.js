@@ -1,31 +1,42 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
 import axios from 'axios'
+import { Link } from 'react-router-dom'
 import Navbar from './Navbar'
+// import Exercise from './Exercise'
 
 
 
-const Exercise = (props) =>{
-  <tr>
-    <td>{props.exercise.username}</td>
-    <td>{props.exercise.description}</td>
-    <td>{props.exercise.duration}</td>
-    <td>{props.exercise.username}</td>
-    <td>{props.exercise.date.substring(0, 10)}</td>
-    <td>
-      <Link to={"/edit/" + props.exercise._id}>edit</Link> | <a href='#' onClick={props.deleteExercise(props.exercise._id)}>Delete</a>
-    </td>
-  </tr>
-}
+
+
+
+
 const ExercisesList = () => {
-  const [exercises, setExercises] = useState([]);
+  const [exercises, setExercises] = useState([
+    {
+      _id:121,
+      username:"trojan",
+      description:"singing",
+      duration:"40",
+      date:"2023-03-01T23:00:00.000Z"
+
+    }
+    
+    
+    
+    // {_id: '641d8e6efc2aff7cd02073ab', username: 'ishola', description: 'yyt', duration: 3, date: '2023-03-01T23:00:00.000Z'}
+  ]);
 
   useEffect(()=>{
     axios.get('http://localhost:2500/exercises/')
-    .then(res=>{
-      setExercises([...res.data])
+    .then(res => {
+      // setExercises(res.data)
+
+      setExercises([...exercises, res.data])
+      console.log(exercises)
+    
+      console.log(res.data);
     })
-    .catch(err=>{
+    .catch((err)=>{
       console.log(err)
     })
   }, [])
@@ -37,11 +48,10 @@ const ExercisesList = () => {
       setExercises(exercises.filter(el=>el._id !== id))
 
   }
-  const exerciselist = ( ) =>{
-    exercises.map(currentExercise =>{
-      return <Exercise exercise={currentExercise} deleteExercise={deleteExercise} key={currentExercise._id}/>
-    })
-  }
+
+
+
+  
   return (
     <div className='container'>
         <Navbar/>
@@ -59,10 +69,34 @@ const ExercisesList = () => {
             </thead>
 
             <tbody>
-              {
-                exerciselist
-              }
-            </tbody>
+  
+
+             {exercises.map(currentExercise => (
+
+              
+                            <tr key={currentExercise._id}>
+                            <td>{currentExercise.username}</td>
+                            <td>{currentExercise.description}</td>
+                            <td>{currentExercise.duration}</td>
+                            <td>{currentExercise.username}</td>
+                            <td>{currentExercise.date.substring(0, 10)}</td>
+                            <td>
+                              <Link to={"/edit/" + currentExercise._id}>edit</Link> |{" "}
+                              {/* <button onClick={deleteExercise(currentExercise._id)}> */}
+                              <button onClick={()=> deleteExercise(currentExercise._id)}>
+                                Delete
+                              </button>
+                            </td>
+                          </tr>
+                                  )
+             )
+
+}
+             
+             
+             
+            {/* //  <Exercise exercise={currentExercise} deleteExercise={deleteExercise} key={currentExercise._id}/>)} */}
+          </tbody>
 
           </table>
            
