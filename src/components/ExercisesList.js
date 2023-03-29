@@ -11,27 +11,14 @@ import Navbar from './Navbar'
 
 
 const ExercisesList = () => {
-  const [exercises, setExercises] = useState([
-    {
-      _id:121,
-      username:"trojan",
-      description:"singing",
-      duration:"40",
-      date:"2023-03-01T23:00:00.000Z"
-
-    }
-    
-    
-    
-    // {_id: '641d8e6efc2aff7cd02073ab', username: 'ishola', description: 'yyt', duration: 3, date: '2023-03-01T23:00:00.000Z'}
-  ]);
+  const [exercises, setExercises] = useState([]);
 
   useEffect(()=>{
     axios.get('http://localhost:2500/exercises/')
     .then(res => {
-      // setExercises(res.data)
+     
 
-      setExercises([...exercises, res.data])
+      setExercises(res.data)
       console.log(exercises)
     
       console.log(res.data);
@@ -79,7 +66,7 @@ const ExercisesList = () => {
                             <td>{currentExercise.description}</td>
                             <td>{currentExercise.duration}</td>
                             <td>{currentExercise.username}</td>
-                            <td>{currentExercise.date.substring(0, 10)}</td>
+                            {/* <td>{currentExercise.date.substring(0, 10)}</td> */}
                             <td>
                               <Link to={"/edit/" + currentExercise._id}>edit</Link> |{" "}
                               {/* <button onClick={deleteExercise(currentExercise._id)}> */}
