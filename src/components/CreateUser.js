@@ -4,6 +4,7 @@ import Navbar from "./Navbar";
 
 const CreateUser = () => {
   const [username, setUsername] = useState("");
+  const[userSuccess, setUserSUccess] = useState("");
   
   
 
@@ -26,7 +27,11 @@ const CreateUser = () => {
 
     console.log(user);
     axios.post('http://localhost:2500/users/add', user)
-      .then(res=>console.log(res.data))
+      .then(res=>{
+        console.log(res.data);
+        setUserSUccess(`${username} has been added to the data base, you can also add more user or go and log your exercise `)
+
+  })
     setUsername("");
     
 
@@ -52,6 +57,7 @@ const CreateUser = () => {
             />
 
           </div>
+          <div style={{color:"green", fontSize:".8em", marginBottom:"20px"}}>{userSuccess}</div>
 
           <div className="form-group">
             <input type="submit" value="Create User" className="btn mt-2 btn-success"/>
